@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veegaland Homes - Financial & FY2026 Competitor Benchmark Dashboard</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        veegaGreen: {
+                            50: '#E8F5E9',
+                            100: '#C8E6C9',
+                            500: '#005A36', 
+                            600: '#0B4D30',
+                            700: '#0F5233',
+                            800: '#083B23',
+                            900: '#042415',
+                        },
+                        veegaGold: {
+                            300: '#F3D270',
+                            400: '#E5A93C',
+                            500: '#D4AF37', 
+                            600: '#B59127',
+                        },
+                        darkBg: '#0B1320',
+                        darkCard: '#131F33',
+                        darkBorder: '#1E2D4A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'green-glow': '0 0 20px rgba(0, 90, 54, 0.3)',
+                        'gold-glow': '0 0 20px rgba(212, 175, 55, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .card-panel {
+            background-color: #FFFFFF;
+            border: 1px solid rgba(0, 90, 54, 0.12);
+            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .card-panel {
+            background-color: #131F33;
+            border-color: #1E2D4A;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-panel:hover {
+            transform: translateY(-3px);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #D4AF37;
+            cursor: pointer;
+            border: 3px solid #005A36;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+            transition: transform 0.15s ease-in-out;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.25);
+        }
+
+        .highlight-row {
+            background-color: rgba(212, 175, 55, 0.2) !important;
+            border-left: 4px solid #D4AF37 !important;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #005A36; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-darkBg text-slate-800 dark:text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-veegaGreen-500 selection:text-white">
+
+    <!-- HEADER NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-darkBg/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 lg:px-8 py-3 transition-colors">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <div class="flex items-center space-x-3 w-full md:w-auto justify-between md:justify-start">
+                <div class="flex items-center space-x-3">
+                    <div class="h-11 px-3 py-1 bg-white rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-sm">
+                        <img 
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU1-seHOBMk-2ywtPg8ReJJjylYowYyAtkFBKS22p4Ew&s=10" 
+                            alt="Veegaland Homes Logo" 
+                            class="h-8 object-contain"
+                            onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'flex items-center gap-1.5 font-black text-veegaGreen-500 text-lg\'><i class=\'fa-solid fa-leaf text-veegaGold-500\'></i> VEEGALAND</div>';"
+                        />
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-black tracking-wide text-veegaGreen-600 dark:text-emerald-400 uppercase flex items-center gap-2">
+                            VEEGALAND HOMES
+                            <span class="text-[10px] px-2 py-0.5 rounded-md bg-veegaGold-500 text-slate-900 font-extrabold tracking-normal">AUDITED & BENCHMARKED (FY2026)</span>
+                        </h1>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1.5">
+                            <span>Chittilappilly Group</span>
+                            <span class="inline-block w-1.5 h-1.5 rounded-full bg-veegaGold-500"></span>
+                            <span class="text-veegaGreen-600 dark:text-emerald-400 font-semibold">Kochi • Kerala</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 md:hidden">
+                    <button onclick="toggleAudioMute()" id="mobileSoundBtn" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200" title="Toggle Sound">
+                        <i class="fa-solid fa-volume-high text-xs"></i>
+                    </button>
+                    <button onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200" title="Toggle Theme">
+                        <i class="fa-solid fa-moon text-xs dark:hidden"></i>
+                        <i class="fa-solid fa-sun text-xs hidden dark:block text-veegaGold-400"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-end gap-3 w-full md:w-auto">
+                
+                <div class="bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center">
+                    <button id="btn-mode-10yr" onclick="setViewMode('10yr')" class="px-3 py-1 rounded-lg text-xs font-bold transition-all bg-veegaGreen-500 text-white shadow-sm">
+                        <i class="fa-solid fa-chart-line mr-1 text-veegaGold-300"></i> Full Horizon
+                    </button>
+                    <button id="btn-mode-single" onclick="setViewMode('single')" class="px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-veegaGreen-600">
+                        <i class="fa-solid fa-calendar-day mr-1"></i> Single Year
+                    </button>
+                </div>
+
+                <div class="relative min-w-[130px]">
+                    <select id="yearSelect" onchange="handleYearSelectChange()" class="w-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold focus:outline-none focus:border-veegaGreen-500 appearance-none cursor-pointer">
+                        <option value="ALL" selected>All (2016-2026)</option>
+                        <option value="2026">2026 (FY26)</option>
+                        <option value="2025">2025 (FY25)</option>
+                        <option value="2024">2024 (FY24)</option>
+                        <option value="2023">2023 (FY23)</option>
+                        <option value="2022">2022 (FY22)</option>
+                        <option value="2021">2021 (FY21)</option>
+                        <option value="2020">2020 (FY20)</option>
+                        <option value="2019">2019 (FY19)</option>
+                        <option value="2018">2018 (FY18)</option>
+                        <option value="2017">2017 (FY17)</option>
+                        <option value="2016">2016 (FY16)</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-3 top-2.5 text-xs text-veegaGreen-500 pointer-events-none"></i>
+                </div>
+
+                <div class="relative min-w-[150px]">
+                    <select id="metricSelect" onchange="handleMetricHighlight()" class="w-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold focus:outline-none focus:border-veegaGreen-500 appearance-none cursor-pointer">
+                        <option value="ALL" selected>Overview (All Metrics)</option>
+                        <option value="revenue">Revenue (₹ Cr)</option>
+                        <option value="ebitda">EBITDA (₹ Cr) [FY22-26]</option>
+                        <option value="profit">Net Profit (₹ Cr)</option>
+                        <option value="area">Delivered Area (Lakh Sq.Ft)</option>
+                        <option value="units">Units Delivered</option>
+                        <option value="ongoing">Active Projects</option>
+                    </select>
+                    <i class="fa-solid fa-sliders absolute right-3 top-2.5 text-xs text-veegaGold-500 pointer-events-none"></i>
+                </div>
+
+                <button onclick="toggleAudioMute()" id="soundBtn" class="hidden md:flex p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-veegaGold-500 transition" title="Toggle Sound FX">
+                    <i class="fa-solid fa-volume-high text-xs text-veegaGreen-500 dark:text-emerald-400"></i>
+                </button>
+
+                <button onclick="toggleTheme()" class="hidden md:flex p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-veegaGold-500 transition" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon text-xs dark:hidden text-slate-700"></i>
+                    <i class="fa-solid fa-sun text-xs hidden dark:block text-veegaGold-400"></i>
+                </button>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 w-full space-y-6 flex-grow">
+
+        <section class="card-panel rounded-2xl p-4 bg-gradient-to-r from-veegaGreen-800 via-veegaGreen-700 to-veegaGreen-900 text-white shadow-lg border-none">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-veegaGold-500 text-slate-900 flex items-center justify-center font-extrabold text-lg shadow-md">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+                            Interactive Year Scrubber & Horizon Filter
+                            <span class="text-[10px] bg-veegaGold-500 text-slate-900 px-2 py-0.5 rounded-full font-bold">Slide to Filter Cumulative Bars</span>
+                        </h3>
+                        <p class="text-xs text-veegaGreen-100">Drag to display cumulative chart data up to selected fiscal year.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white/15 backdrop-blur-md border border-white/20 px-4 py-2 rounded-xl flex items-center gap-4 text-xs font-semibold w-full md:w-auto justify-between md:justify-end">
+                    <div>
+                        <span class="text-veegaGold-300 block text-[10px] uppercase font-bold">Active Year</span>
+                        <span id="scrubYearDisplay" class="text-lg font-black text-white">FY2026</span>
+                    </div>
+                    <div class="h-8 w-px bg-white/20"></div>
+                    <div>
+                        <span class="text-slate-200 block text-[10px] uppercase font-bold">Revenue</span>
+                        <span id="scrubRevDisplay" class="text-sm font-bold text-emerald-300">₹250.98 Cr</span>
+                    </div>
+                    <div class="h-8 w-px bg-white/20"></div>
+                    <div>
+                        <span class="text-slate-200 block text-[10px] uppercase font-bold">EBITDA</span>
+                        <span id="scrubEbitdaDisplay" class="text-sm font-bold text-amber-300">₹43.25 Cr</span>
+                    </div>
+                    <div class="h-8 w-px bg-white/20"></div>
+                    <div>
+                        <span class="text-slate-200 block text-[10px] uppercase font-bold">Net Profit</span>
+                        <span id="scrubProfitDisplay" class="text-sm font-bold text-veegaGold-400">₹26.61 Cr</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-1.5 pt-1">
+                <input 
+                    type="range" 
+                    id="yearScrubber" 
+                    min="0" 
+                    max="10" 
+                    step="1" 
+                    value="10" 
+                    oninput="handleScrubberInput(this.value)"
+                    class="w-full h-2 bg-veegaGreen-900/80 rounded-lg appearance-none cursor-pointer accent-veegaGold-500 focus:outline-none"
+                />
+                <div class="flex justify-between text-[11px] font-bold text-veegaGreen-100 px-1">
+                    <span>FY16</span>
+                    <span>FY17</span>
+                    <span>FY18</span>
+                    <span>FY19</span>
+                    <span>FY20</span>
+                    <span>FY21</span>
+                    <span>FY22</span>
+                    <span>FY23</span>
+                    <span>FY24</span>
+                    <span>FY25</span>
+                    <span class="text-veegaGold-400">FY26</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- KPI SUMMARY GRID -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3.5">
+            
+            <div id="card-kpi-revenue" class="card-panel rounded-2xl p-3.5 relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Revenue</span>
+                    <div class="w-7 h-7 rounded-lg bg-veegaGreen-50 dark:bg-emerald-950/60 border border-veegaGreen-100 dark:border-emerald-800 flex items-center justify-center text-veegaGreen-600 dark:text-emerald-400">
+                        <i class="fa-solid fa-indian-rupee-sign text-xs"></i>
+                    </div>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <div class="text-lg lg:text-xl font-black text-slate-900 dark:text-white tracking-tight" id="kpi-revenue">₹250.98 Cr</div>
+                    <span class="inline-flex items-center text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-1.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800" id="kpi-revenue-yoy">
+                        +30.5%
+                    </span>
+                </div>
+                <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-1.5">
+                    <span>11-Yr Total: <strong class="text-veegaGreen-600 dark:text-emerald-400 font-bold" id="kpi-revenue-agg">₹1,352 Cr</strong></span>
+                </div>
+            </div>
+
+            <div id="card-kpi-ebitda" class="card-panel rounded-2xl p-3.5 relative overflow-hidden group border-amber-400/50">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">EBITDA</span>
+                    <div class="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                        <i class="fa-solid fa-chart-line-up text-xs"></i>
+                    </div>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <div class="text-lg lg:text-xl font-black text-slate-900 dark:text-white tracking-tight" id="kpi-ebitda">₹43.25 Cr</div>
+                    <span class="inline-flex items-center text-[10px] font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/50 px-1.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-800" id="kpi-ebitda-yoy">
+                        17.23%
+                    </span>
+                </div>
+                <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-1.5">
+                    <span>FY22-26 Audited</span>
+                    <strong class="text-amber-600 dark:text-amber-400 font-bold" id="kpi-ebitda-status">5-Yr Track</strong>
+                </div>
+            </div>
+
+            <div id="card-kpi-profit" class="card-panel rounded-2xl p-3.5 relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Net Profit</span>
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-100 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                        <i class="fa-solid fa-vault text-xs"></i>
+                    </div>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <div class="text-lg lg:text-xl font-black text-slate-900 dark:text-white tracking-tight" id="kpi-profit">₹26.61 Cr</div>
+                    <span class="inline-flex items-center text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-1.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800" id="kpi-profit-yoy">
+                        +28.5%
+                    </span>
+                </div>
+                <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-1.5">
+                    <span>Net Margin: <strong class="text-veegaGold-500 font-bold" id="kpi-profit-margin">10.60%</strong></span>
+                </div>
+            </div>
+
+            <div id="card-kpi-area" class="card-panel rounded-2xl p-3.5 relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Handover Area</span>
+                    <div class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                        <i class="fa-solid fa-ruler-combined text-xs"></i>
+                    </div>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <div class="text-lg lg:text-xl font-black text-slate-900 dark:text-white tracking-tight" id="kpi-area">27.6 L Sq.Ft</div>
+                    <span class="inline-flex items-center text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-1.5 py-0.5 rounded-full border border-blue-200 dark:border-blue-800">
+                        Cumulative
+                    </span>
+                </div>
+                <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-1.5">
+                    <span>FY26 Handover: <strong class="text-blue-600 dark:text-blue-400 font-bold" id="kpi-area-year">4.9 L Sq.Ft</strong></span>
+                </div>
+            </div>
+
+            <div id="card-kpi-units" class="card-panel rounded-2xl p-3.5 relative overflow-hidden group">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Units Delivered</span>
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-100 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                        <i class="fa-solid fa-key text-xs"></i>
+                    </div>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <div class="text-lg lg:text-xl font-black text-slate-900 dark:text-white tracking-tight" id="kpi-units">2,110 Units</div>
+                    <span class="inline-flex items-center text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-1.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                        Homes
+                    </span>
+                </div>
+                <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-1.5">
+                    <span>FY26 Handover: <strong class="text-emerald-600 dark:text-emerald-400 font-bold" id="kpi-units-year">290 Homes</strong></span>
+                </div>
+            </div>
+
+            <div id="card-kpi-ongoing" onclick="openLocationModal()" class="card-panel rounded-2xl p-3.5 relative overflow-hidden group cursor-pointer border-veegaGreen-500/30 hover:border-veegaGold-500 transition-all">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Landmarks</span>
+                    <div class="w-7 h-7 rounded-lg bg-purple-50 dark:bg-purple-950/60 border border-purple-100 dark:border-purple-800 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                        <i class="fa-solid fa-map-location-dot text-xs"></i>
+                    </div>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <div class="text-lg lg:text-xl font-black text-slate-900 dark:text-white tracking-tight" id="kpi-ongoing">12 Active</div>
+                    <span class="inline-flex items-center text-[10px] font-bold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/50 px-1.5 py-0.5 rounded-full border border-purple-200 dark:border-purple-800 animate-pulse">
+                        <i class="fa-solid fa-location-dot mr-1 text-[9px]"></i> View Maps
+                    </span>
+                </div>
+                <div class="mt-2 text-[10px] text-veegaGreen-700 dark:text-emerald-400 font-bold flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-1.5">
+                    <span>26+ Sites in Kerala</span>
+                    <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CHARTS SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div class="card-panel rounded-2xl p-5 lg:col-span-2 flex flex-col justify-between">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-veegaGreen-500"></i>
+                            <span>Financial Trajectory: Revenue, EBITDA & Net Profit</span>
+                        </h3>
+                        <p class="text-xs text-slate-500">Includes audited EBITDA (FY22–FY26) and 10-year bottom-line trend</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 text-xs font-semibold">
+                        <span class="flex items-center gap-1.5 text-slate-700 dark:text-slate-300"><span class="w-3 h-3 rounded-sm bg-veegaGreen-500 inline-block"></span> Revenue</span>
+                        <span class="flex items-center gap-1.5 text-slate-700 dark:text-slate-300"><span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> EBITDA</span>
+                        <span class="flex items-center gap-1.5 text-slate-700 dark:text-slate-300"><span class="w-3 h-3 rounded-full bg-veegaGold-500 inline-block"></span> Net Profit</span>
+                    </div>
+                </div>
+                <div class="relative w-full h-[310px]">
+                    <canvas id="financialTrajectoryChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card-panel rounded-2xl p-5 flex flex-col justify-between">
+                <div class="mb-2">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-veegaGreen-500"></i>
+                        <span>Portfolio Classification</span>
+                    </h3>
+                    <p class="text-xs text-slate-500">Living concepts and residential segments</p>
+                </div>
+                <div class="relative w-full h-[210px] flex items-center justify-center my-2">
+                    <canvas id="categoryBreakupChart"></canvas>
+                </div>
+                <div class="grid grid-cols-1 gap-1.5 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs font-medium">
+                    <div class="flex items-center justify-between p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/60">
+                        <span class="text-slate-700 dark:text-slate-300 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-veegaGreen-500"></span> Biophilic Urban Homes</span>
+                        <span class="font-bold text-slate-900 dark:text-white">40%</span>
+                    </div>
+                    <div class="flex items-center justify-between p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/60">
+                        <span class="text-slate-700 dark:text-slate-300 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-veegaGold-500"></span> Sky Villaments</span>
+                        <span class="font-bold text-slate-900 dark:text-white">35%</span>
+                    </div>
+                    <div class="flex items-center justify-between p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/60">
+                        <span class="text-slate-700 dark:text-slate-300 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-slate-800 dark:bg-slate-300"></span> Premium Apartments</span>
+                        <span class="font-bold text-slate-900 dark:text-white">25%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-panel rounded-2xl p-5 flex flex-col justify-between">
+                <div class="mb-2">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-city text-veegaGreen-500"></i>
+                        <span>Geographic Footprint (Kerala)</span>
+                    </h3>
+                    <p class="text-xs text-slate-500">Projects across major urban hubs</p>
+                </div>
+                <div class="relative w-full h-[240px]">
+                    <canvas id="cityDistributionChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card-panel rounded-2xl p-5 lg:col-span-2 flex flex-col justify-between">
+                <div class="mb-2">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-ruler-combined text-veegaGold-500"></i>
+                        <span>Constructed Area & Annual Units Delivered</span>
+                    </h3>
+                    <p class="text-xs text-slate-500">Annual area handed over (Lakh Sq.Ft) vs Residential homes completed</p>
+                </div>
+                <div class="relative w-full h-[240px]">
+                    <canvas id="areaUnitsChart"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 10-YEAR HISTORICAL FINANCIAL & EXECUTION LEDGER -->
+        <section class="card-panel rounded-2xl p-5 space-y-4">
+            
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-table text-veegaGreen-500"></i>
+                        <span>Historical Financial & Execution Ledger (2016 – 2026)</span>
+                    </h3>
+                    <p class="text-xs text-slate-500">Includes Audited EBITDA figures (FY22–FY26) and key delivery milestones</p>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <input type="text" id="ledgerSearch" onkeyup="filterLedgerTable()" placeholder="Search year or milestone..." class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs rounded-xl pl-9 pr-4 py-2 w-56 focus:outline-none focus:border-veegaGreen-500 transition">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-400"></i>
+                    </div>
+
+                    <button onclick="exportLedgerToCSV()" class="bg-veegaGreen-50 dark:bg-emerald-950/50 hover:bg-veegaGreen-100 text-veegaGreen-700 dark:text-emerald-300 border border-veegaGreen-200 dark:border-emerald-800 px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-file-csv"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+                <table class="w-full text-left text-xs text-slate-700 dark:text-slate-300" id="ledgerTable">
+                    <thead class="bg-slate-100 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 uppercase font-bold border-b border-slate-200 dark:border-slate-700 tracking-wider">
+                        <tr>
+                            <th scope="col" class="py-3.5 px-3.5 cursor-pointer hover:text-veegaGreen-600" onclick="sortLedgerTable(0)">
+                                Year <i class="fa-solid fa-sort text-[10px] ml-1"></i>
+                            </th>
+                            <th scope="col" class="py-3.5 px-3.5 cursor-pointer hover:text-veegaGreen-600 text-right" onclick="sortLedgerTable(1)">
+                                Revenue (₹ Cr) <i class="fa-solid fa-sort text-[10px] ml-1"></i>
+                            </th>
+                            <th scope="col" class="py-3.5 px-3.5 cursor-pointer text-amber-600 dark:text-amber-400 hover:text-veegaGreen-600 text-right bg-amber-50/50 dark:bg-amber-950/20" onclick="sortLedgerTable(2)">
+                                EBITDA (₹ Cr) <i class="fa-solid fa-sort text-[10px] ml-1"></i>
+                            </th>
+                            <th scope="col" class="py-3.5 px-3.5 cursor-pointer hover:text-veegaGreen-600 text-right" onclick="sortLedgerTable(3)">
+                                Net Profit (₹ Cr) <i class="fa-solid fa-sort text-[10px] ml-1"></i>
+                            </th>
+                            <th scope="col" class="py-3.5 px-3.5 cursor-pointer hover:text-veegaGreen-600 text-right" onclick="sortLedgerTable(4)">
+                                Net Margin <i class="fa-solid fa-sort text-[10px] ml-1"></i>
+                            </th>
+                            <th scope="col" class="py-3.5 px-3.5 cursor-pointer hover:text-veegaGreen-600 text-right" onclick="sortLedgerTable(5)">
+                                Handover Area <i class="fa-solid fa-sort text-[10px] ml-1"></i>
+                            </th>
+                            <th scope="col" class="py-3.5 px-3.5 cursor-pointer hover:text-veegaGreen-600 text-right" onclick="sortLedgerTable(6)">
+                                Units <i class="fa-solid fa-sort text-[10px] ml-1"></i>
+                            </th>
+                            <th scope="col" class="py-3.5 px-3.5 cursor-pointer hover:text-veegaGreen-600 text-center" onclick="sortLedgerTable(7)">
+                                Sites <i class="fa-solid fa-sort text-[10px] ml-1"></i>
+                            </th>
+                            <th scope="col" class="py-3.5 px-3.5">
+                                Key Delivery Milestone
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-darkCard" id="ledgerTableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="flex items-center justify-between text-xs text-slate-500 pt-2">
+                <span>Displaying 11 fiscal cycles (FY16 - FY26)</span>
+                <span class="text-veegaGreen-700 dark:text-emerald-400 font-medium"><i class="fa-solid fa-shield-halved text-emerald-500 mr-1"></i> FY22-FY26 EBITDA Sourced from Regulatory Filings</span>
+            </div>
+        </section>
+
+        <!-- SINGLE-YEAR COMPETITOR BENCHMARK SECTION (FY2026) -->
+        <section class="card-panel rounded-2xl p-5 border-veegaGold-500/40 relative overflow-hidden">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-veegaGold-500/20 text-veegaGold-500 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-chart-column text-veegaGold-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                            Competitor Benchmark Analysis (Revenue & Net Profit Snapshot)
+                            <span class="text-[10px] bg-veegaGreen-500 text-white px-2 py-0.5 rounded-full font-bold">FY2026</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Comparing Revenue and Net Profit side-by-side across major competitors in Kerala.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 text-xs font-semibold">
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-veegaGreen-600 inline-block"></span> Revenue (₹ Cr)</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-veegaGold-500 inline-block"></span> Net Profit (₹ Cr)</span>
+                </div>
+            </div>
+
+            <!-- Single Year Competitor Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                
+                <div class="p-4 rounded-xl border-2 border-veegaGreen-500 bg-veegaGreen-50/60 dark:bg-emerald-950/40 shadow-sm relative overflow-hidden">
+                    <span class="absolute top-2 right-2 text-[9px] bg-veegaGold-500 text-slate-900 px-1.5 py-0.5 rounded font-extrabold">SUBJECT</span>
+                    <h4 class="text-xs font-black text-slate-800 dark:text-slate-100 uppercase tracking-wider mb-2">Veegaland Homes</h4>
+                    <div class="space-y-1 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-500">Revenue:</span> <strong class="text-slate-900 dark:text-white">₹250.98 Cr</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Net Profit:</span> <strong class="text-emerald-600 dark:text-emerald-400">₹26.61 Cr</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Area Delivered:</span> <strong class="text-blue-600 dark:text-blue-400">4.9 L Sq.Ft</strong></div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 shadow-sm">
+                    <h4 class="text-xs font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wider mb-2">Confident Group</h4>
+                    <div class="space-y-1 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-500">Revenue:</span> <strong class="text-slate-900 dark:text-white">₹340.0 Cr</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Net Profit:</span> <strong class="text-emerald-600 dark:text-emerald-400">₹28.9 Cr</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Area Delivered:</span> <strong class="text-blue-600 dark:text-blue-400">6.2 L Sq.Ft</strong></div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 shadow-sm">
+                    <h4 class="text-xs font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wider mb-2">Sobha Ltd (Kerala)</h4>
+                    <div class="space-y-1 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-500">Revenue:</span> <strong class="text-slate-900 dark:text-white">₹410.0 Cr</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Net Profit:</span> <strong class="text-emerald-600 dark:text-emerald-400">₹52.4 Cr</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Area Delivered:</span> <strong class="text-blue-600 dark:text-blue-400">5.8 L Sq.Ft</strong></div>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 shadow-sm">
+                    <h4 class="text-xs font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wider mb-2">Skyline Builders</h4>
+                    <div class="space-y-1 text-xs">
+                        <div class="flex justify-between"><span class="text-slate-500">Revenue:</span> <strong class="text-slate-900 dark:text-white">₹280.0 Cr</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Net Profit:</span> <strong class="text-emerald-600 dark:text-emerald-400">₹27.4 Cr</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-500">Area Delivered:</span> <strong class="text-blue-600 dark:text-blue-400">4.5 L Sq.Ft</strong></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Single Year Competitor Dual-Bar Chart (Revenue & Net Profit) -->
+            <div class="relative w-full h-[280px]">
+                <canvas id="singleYearCompetitorChart"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- INTERACTIVE LOCATION EXPLORER MODAL -->
+    <div id="locationModal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-white dark:bg-darkCard rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+            
+            <div class="p-5 border-b border-slate-200 dark:border-slate-800 bg-veegaGreen-700 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-veegaGold-500 text-slate-900 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            Veegaland Landmarks & Active Locations
+                            <span class="text-xs bg-veegaGold-500 text-slate-900 px-2 py-0.5 rounded-full font-extrabold">26+ Sites</span>
+                        </h3>
+                        <p class="text-xs text-veegaGreen-100">Explore projects in Kochi, Thrissur, Kozhikode, and Trivandrum</p>
+                    </div>
+                </div>
+                <button onclick="closeLocationModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+
+            <div class="p-4 bg-slate-50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="flex items-center space-x-1 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 text-xs">
+                    <button onclick="filterLandmarksByCity('ALL')" id="tab-city-ALL" class="city-tab px-3 py-1.5 rounded-lg font-bold bg-veegaGreen-500 text-white shadow-sm transition">All Cities</button>
+                    <button onclick="filterLandmarksByCity('Kochi')" id="tab-city-Kochi" class="city-tab px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300 hover:text-veegaGreen-600 transition">Kochi (15)</button>
+                    <button onclick="filterLandmarksByCity('Thrissur')" id="tab-city-Thrissur" class="city-tab px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300 hover:text-veegaGreen-600 transition">Thrissur (5)</button>
+                    <button onclick="filterLandmarksByCity('Kozhikode')" id="tab-city-Kozhikode" class="city-tab px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300 hover:text-veegaGreen-600 transition">Kozhikode (3)</button>
+                    <button onclick="filterLandmarksByCity('Thiruvananthapuram')" id="tab-city-Thiruvananthapuram" class="city-tab px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300 hover:text-veegaGreen-600 transition">Trivandrum (3)</button>
+                </div>
+
+                <div class="relative w-full sm:w-64">
+                    <input type="text" id="landmarkModalSearch" onkeyup="searchLandmarksModal()" placeholder="Search neighborhood or project..." class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs rounded-xl pl-8 pr-3 py-1.5 focus:outline-none focus:border-veegaGreen-500">
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2 text-xs text-slate-400"></i>
+                </div>
+            </div>
+
+            <div class="p-5 overflow-y-auto flex-grow max-h-[60vh] bg-slate-100/60 dark:bg-slate-900/40">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="landmarksGridContainer"></div>
+            </div>
+
+            <div class="p-3.5 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-darkCard flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                <span><i class="fa-solid fa-leaf text-veegaGreen-600 dark:text-emerald-400 mr-1"></i> Biophilic Architecture with Solar Integration</span>
+                <button onclick="closeLocationModal()" class="px-4 py-1.5 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 text-slate-800 dark:text-slate-200 rounded-lg font-bold transition">Close</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-darkBg py-4 px-4 lg:px-8 mt-6">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+            <div class="flex items-center space-x-2">
+                <span class="text-veegaGreen-700 dark:text-emerald-400 font-bold">Veegaland Homes Financial & Competitor Analytics</span> &copy; 2026.
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://www.veegaland.com" target="_blank" rel="noopener" class="hover:text-veegaGreen-600 dark:hover:text-emerald-400 font-semibold transition">Official Website</a>
+                <span>•</span>
+                <span>Veegaland Developers Limited, Kochi, Kerala</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        let audioMuted = false;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        ['click', 'keydown', 'touchstart', 'input'].forEach(evt => {
+            document.addEventListener(evt, () => {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            }, { once: false });
+        });
+
+        function playSound(freq = 440, type = 'sine', duration = 0.12) {
+            if (audioMuted) return;
+            try {
+                if (audioCtx.state === 'suspended') { 
+                    audioCtx.resume(); 
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.6, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        function toggleAudioMute() {
+            audioMuted = !audioMuted;
+            const iconClass = audioMuted ? 'fa-solid fa-volume-xmark text-slate-400' : 'fa-solid fa-volume-high text-veegaGreen-500 dark:text-emerald-400';
+            document.getElementById('soundBtn').innerHTML = `<i class="${iconClass} text-xs"></i>`;
+            document.getElementById('mobileSoundBtn').innerHTML = `<i class="${iconClass} text-xs"></i>`;
+            if (!audioMuted) playSound(700, 'sine', 0.2);
+        }
+
+        function toggleTheme() {
+            playSound(600, 'sine', 0.15);
+            document.documentElement.classList.toggle('dark');
+            updateChartThemeColors(document.documentElement.classList.contains('dark'));
+        }
+
+        const veegalandSeries = [
+            { year: "2026", revenue: 250.98, ebitda: 43.25, ebitdaMargin: 17.23, profit: 26.61, area: 4.9, cumArea: 27.6, units: 290, cumUnits: 2110, ongoing: 12, margin: 10.60, milestone: "Handover of Queens Park Edappally & Maybell Kakkanad" },
+            { year: "2025", revenue: 192.38, ebitda: 37.27, ebitdaMargin: 19.37, profit: 20.71, area: 3.5, cumArea: 22.7, units: 260, cumUnits: 1820, ongoing: 11, margin: 10.76, milestone: "Lluvia Garden Trivandrum & Amora Maradu scaling" },
+            { year: "2024", revenue: 110.77, ebitda: 16.88, ebitdaMargin: 15.24, profit: 12.10, area: 2.7, cumArea: 19.2, units: 210, cumUnits: 1560, ongoing: 10, margin: 10.92, milestone: "Symphony Calicut & Flora Edappally handovers" },
+            { year: "2023", revenue: 122.40, ebitda: 19.64, ebitdaMargin: 16.05, profit: 14.50, area: 3.1, cumArea: 16.5, units: 220, cumUnits: 1350, ongoing: 10, margin: 11.84, milestone: "KingsFort Sky Villaments delivered at Vyttila" },
+            { year: "2022", revenue: 98.20,  ebitda: 22.17, ebitdaMargin: 22.58, profit: 12.80, area: 2.5, cumArea: 13.4, units: 180, cumUnits: 1130, ongoing: 9,  margin: 13.03, milestone: "Biophilic residential framework expanded in Vazhakkala" },
+            { year: "2021", revenue: 105.00, ebitda: null,  ebitdaMargin: null,  profit: 13.80, area: 2.3, cumArea: 10.9, units: 170, cumUnits: 950,  ongoing: 8,  margin: 13.14, milestone: "Pioneered solar-integrated biophilic towers" },
+            { year: "2020", revenue: 85.00,  ebitda: null,  ebitdaMargin: null,  profit: 9.80,  area: 1.6, cumArea: 8.6,  units: 140, cumUnits: 780,  ongoing: 7,  margin: 11.53, milestone: "Exotica Edappally delivered ahead of schedule" },
+            { year: "2019", revenue: 90.00,  ebitda: null,  ebitdaMargin: null,  profit: 11.50, area: 1.7, cumArea: 7.0,  units: 150, cumUnits: 640,  ongoing: 8,  margin: 12.78, milestone: "Expansion into Thrissur & Calicut premium markets" },
+            { year: "2018", revenue: 72.00,  ebitda: null,  ebitdaMargin: null,  profit: 9.20,  area: 1.7, cumArea: 5.3,  units: 140, cumUnits: 490,  ongoing: 7,  margin: 12.78, milestone: "Handover of Petunia & Begonia luxury towers Kaloor" },
+            { year: "2017", revenue: 58.00,  ebitda: null,  ebitdaMargin: null,  profit: 7.10,  area: 1.3, cumArea: 3.6,  units: 180, cumUnits: 350,  ongoing: 6,  margin: 12.24, milestone: "Zinnia Padamugal completed & occupancy achieved" },
+            { year: "2016", revenue: 45.00,  ebitda: null,  ebitdaMargin: null,  profit: 5.20,  area: 2.3, cumArea: 2.3,  units: 170, cumUnits: 170,  ongoing: 5,  margin: 11.56, milestone: "Inaugural home deliveries in Kakkanad & Thrippunithura" }
+        ];
+
+        const landmarksCatalog = [
+            { name: "Green Clouds", city: "Kochi", location: "Vazhakkala, Kakkanad Road", category: "Biophilic Urban Homes", status: "Handed Over", units: 180, mapUrl: "https://maps.google.com/?q=Veegaland+Green+Clouds+Kochi" },
+            { name: "KingsFort", city: "Kochi", location: "Vyttila Mobility Hub", category: "Sky Villaments", status: "Handed Over", units: 120, mapUrl: "https://maps.google.com/?q=Veegaland+KingsFort+Vyttila" },
+            { name: "Exotica", city: "Kochi", location: "Edappally Toll", category: "Premium Residential", status: "Handed Over", units: 140, mapUrl: "https://maps.google.com/?q=Veegaland+Exotica+Edappally" },
+            { name: "Petunia & Begonia", city: "Kochi", location: "Kaloor, Near Stadium", category: "Biophilic Urban Homes", status: "Handed Over", units: 160, mapUrl: "https://maps.google.com/?q=Veegaland+Petunia+Kaloor" },
+            { name: "Zinnia", city: "Kochi", location: "Padamugal, Kakkanad", category: "Premium Residential", status: "Handed Over", units: 110, mapUrl: "https://maps.google.com/?q=Veegaland+Zinnia+Kakkanad" },
+            { name: "Flora", city: "Kochi", location: "Edappally North", category: "Biophilic Urban Homes", status: "Finishing / Handover", units: 150, mapUrl: "https://maps.google.com/?q=Veegaland+Flora+Edappally" },
+            { name: "Amora", city: "Kochi", location: "Maradu, Kundannoor", category: "Premium Residential", status: "Under Construction", units: 175, mapUrl: "https://maps.google.com/?q=Veegaland+Amora+Maradu" },
+            { name: "Queens Park", city: "Kochi", location: "Edappally Junction", category: "Sky Villaments", status: "Handed Over", units: 210, mapUrl: "https://maps.google.com/?q=Veegaland+Queens+Park+Kochi" },
+            { name: "Maybell", city: "Kochi", location: "Kakkanad / Vazhakkala", category: "Sky Villaments", status: "Finishing Phase", units: 165, mapUrl: "https://maps.google.com/?q=Veegaland+Maybell+Kakkanad" },
+            { name: "Symphony", city: "Kozhikode", location: "Chevayur, Calicut", category: "Sky Villaments", status: "Handed Over", units: 130, mapUrl: "https://maps.google.com/?q=Veegaland+Symphony+Calicut" },
+            { name: "Calicut Heights", city: "Kozhikode", location: "Thondayad Bypass", category: "Biophilic Urban Homes", status: "Under Construction", units: 190, mapUrl: "https://maps.google.com/?q=Veegaland+Calicut" },
+            { name: "The Citadel", city: "Thrissur", location: "Swaraj Round North", category: "Premium Residential", status: "Handed Over", units: 105, mapUrl: "https://maps.google.com/?q=Veegaland+Citadel+Thrissur" },
+            { name: "Elanza", city: "Thrissur", location: "Kottekkad Road", category: "Biophilic Urban Homes", status: "Under Construction", units: 140, mapUrl: "https://maps.google.com/?q=Veegaland+Thrissur" },
+            { name: "Lluvia Garden", city: "Thiruvananthapuram", location: "Kazhakkoottam TechnoPark", category: "Biophilic Urban Homes", status: "Under Construction", units: 220, mapUrl: "https://maps.google.com/?q=Veegaland+Lluvia+Garden+Trivandrum" },
+            { name: "Capital Park", city: "Thiruvananthapuram", location: "Pattam Junction", category: "Sky Villaments", status: "Newly Launched", units: 160, mapUrl: "https://maps.google.com/?q=Veegaland+Trivandrum" }
+        ];
+
+        let chartFinancials, chartCategory, chartCity, chartAreaUnits, singleYearCompetitorChart;
+
+        window.onload = function() {
+            populateLedgerTable(veegalandSeries);
+            initCharts();
+            updateKPIsForSeries(veegalandSeries);
+            renderLandmarkCards(landmarksCatalog);
+            initSingleYearCompetitorChart();
+            handleScrubberInput(10);
+        };
+
+        function initSingleYearCompetitorChart() {
+            const ctxComp = document.getElementById('singleYearCompetitorChart').getContext('2d');
+            singleYearCompetitorChart = new Chart(ctxComp, {
+                type: 'bar',
+                data: {
+                    labels: ['Veegaland Homes', 'Confident Group', 'Sobha Ltd (Kerala)', 'Skyline Builders'],
+                    datasets: [
+                        { 
+                            label: 'Revenue (₹ Cr)', 
+                            data: [250.98, 340.0, 410.0, 280.0], 
+                            backgroundColor: '#005A36', 
+                            borderRadius: 6 
+                        },
+                        { 
+                            label: 'Net Profit (₹ Cr)', 
+                            data: [26.61, 28.9, 52.4, 27.4], 
+                            backgroundColor: '#D4AF37', 
+                            borderRadius: 6 
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true, position: 'top' } },
+                    scales: { 
+                        y: { beginAtZero: true, title: { display: true, text: '₹ Crores' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function handleScrubberInput(index) {
+            playSound(320 + (parseInt(index) * 60), 'sine', 0.1);
+            
+            const chronological = [...veegalandSeries].reverse();
+            const targetItem = chronological[index];
+
+            if (!targetItem) return;
+
+            document.getElementById('scrubYearDisplay').innerText = `FY${targetItem.year}`;
+            document.getElementById('scrubRevDisplay').innerText = `₹${targetItem.revenue.toFixed(2)} Cr`;
+            document.getElementById('scrubEbitdaDisplay').innerText = targetItem.ebitda !== null ? `₹${targetItem.ebitda.toFixed(2)} Cr` : 'N/A';
+            document.getElementById('scrubProfitDisplay').innerText = `₹${targetItem.profit.toFixed(2)} Cr`;
+
+            const greenColor = '#005A36';
+            const transparentColor = 'rgba(0,0,0,0)';
+
+            if (chartFinancials) {
+                const barColors = chronological.map((item, idx) => idx <= index ? greenColor : transparentColor);
+                chartFinancials.data.datasets[2].backgroundColor = barColors;
+                chartFinancials.update();
+            }
+
+            if (chartAreaUnits) {
+                const areaColors = chronological.map((item, idx) => idx <= index ? 'rgba(0, 90, 54, 0.2)' : transparentColor);
+                chartAreaUnits.data.datasets[0].backgroundColor = areaColors;
+                chartAreaUnits.update();
+            }
+
+            document.querySelectorAll('#ledgerTableBody tr').forEach(row => row.classList.remove('highlight-row'));
+            const targetRow = document.getElementById(`ledger-row-${targetItem.year}`);
+            if (targetRow) { targetRow.classList.add('highlight-row'); }
+
+            updateKPIsForSingleYear(targetItem);
+        }
+
+        function populateLedgerTable(series) {
+            const tbody = document.getElementById('ledgerTableBody');
+            tbody.innerHTML = '';
+
+            series.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.id = `ledger-row-${item.year}`;
+                tr.className = "hover:bg-veegaGreen-50/40 dark:hover:bg-slate-800/50 transition border-b border-slate-100 dark:border-slate-800";
+                
+                const ebitdaCell = item.ebitda !== null 
+                    ? `<td class="py-3.5 px-3.5 font-bold text-amber-600 dark:text-amber-400 text-right bg-amber-50/30 dark:bg-amber-950/20">₹${item.ebitda.toFixed(2)} Cr <span class="text-[9px] text-slate-500 font-normal block">${item.ebitdaMargin}%</span></td>`
+                    : `<td class="py-3.5 px-3.5 font-medium text-slate-400 text-right italic">N/A (Pvt Ltd)</td>`;
+
+                tr.innerHTML = `
+                    <td class="py-3.5 px-3.5 font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-veegaGreen-500"></span>
+                        <span>FY${item.year}</span>
+                    </td>
+                    <td class="py-3.5 px-3.5 font-bold text-slate-900 dark:text-slate-100 text-right">₹${item.revenue.toFixed(2)} Cr</td>
+                    ${ebitdaCell}
+                    <td class="py-3.5 px-3.5 font-bold text-emerald-600 dark:text-emerald-400 text-right">₹${item.profit.toFixed(2)} Cr</td>
+                    <td class="py-3.5 px-3.5 font-semibold text-slate-700 dark:text-slate-300 text-right">${item.margin}%</td>
+                    <td class="py-3.5 px-3.5 font-semibold text-blue-600 dark:text-blue-400 text-right">${item.area} L Sq.Ft</td>
+                    <td class="py-3.5 px-3.5 font-semibold text-emerald-600 dark:text-emerald-400 text-right">${item.units} Units</td>
+                    <td class="py-3.5 px-3.5 text-center font-bold text-purple-600 dark:text-purple-400">${item.ongoing}</td>
+                    <td class="py-3.5 px-3.5 text-slate-600 dark:text-slate-400 font-medium">${item.milestone}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function initCharts() {
+            Chart.defaults.font.family = 'Inter';
+            const isDark = document.documentElement.classList.contains('dark');
+            const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)';
+            const textColor = isDark ? '#94A3B8' : '#64748B';
+
+            Chart.defaults.color = textColor;
+
+            const labels = veegalandSeries.map(d => "FY" + d.year).reverse();
+            const revenues = veegalandSeries.map(d => d.revenue).reverse();
+            const ebitdas = veegalandSeries.map(d => d.ebitda).reverse();
+            const profits = veegalandSeries.map(d => d.profit).reverse();
+            const areas = veegalandSeries.map(d => d.area).reverse();
+            const units = veegalandSeries.map(d => d.units).reverse();
+
+            const ctx1 = document.getElementById('financialTrajectoryChart').getContext('2d');
+            chartFinancials = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Net Profit (₹ Cr)', data: profits, type: 'line', borderColor: '#D4AF37', backgroundColor: '#D4AF37', borderWidth: 3, pointBackgroundColor: '#005A36', pointRadius: 4, tension: 0.3, yAxisID: 'y1' },
+                        { label: 'EBITDA (₹ Cr)', data: ebitdas, type: 'line', borderColor: '#F59E0B', borderWidth: 2.5, borderDash: [4, 4], pointBackgroundColor: '#F59E0B', pointRadius: 4, tension: 0.2, yAxisID: 'y1' },
+                        { label: 'Revenue (₹ Cr)', data: revenues, backgroundColor: '#005A36', borderRadius: 6, yAxisID: 'y' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: gridColor } },
+                        y: { position: 'left', grid: { color: gridColor }, title: { display: true, text: 'Revenue (₹ Cr)', color: '#005A36' } },
+                        y1: { position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Profit / EBITDA (₹ Cr)', color: '#D4AF37' } }
+                    }
+                }
+            });
+
+            const ctx2 = document.getElementById('categoryBreakupChart').getContext('2d');
+            chartCategory = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Biophilic Urban Homes', 'Sky Villaments', 'Premium Apartments'],
+                    datasets: [{ data: [40, 35, 25], backgroundColor: ['#005A36', '#D4AF37', '#1E293B'], borderWidth: 2, borderColor: '#FFFFFF' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '70%' }
+            });
+
+            const ctx3 = document.getElementById('cityDistributionChart').getContext('2d');
+            chartCity = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Kochi', 'Thrissur', 'Kozhikode', 'Trivandrum'],
+                    datasets: [{ label: 'Landmarks', data: [15, 5, 3, 3], backgroundColor: ['#005A36', '#D4AF37', '#10B981', '#3B82F6'], borderRadius: 8 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: gridColor } } } }
+            });
+
+            const ctx4 = document.getElementById('areaUnitsChart').getContext('2d');
+            chartAreaUnits = new Chart(ctx4, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Handover Area (Lakh Sq.Ft)', data: areas, borderColor: '#005A36', backgroundColor: 'rgba(0, 90, 54, 0.2)', fill: true, borderWidth: 2.5, tension: 0.3, yAxisID: 'y' },
+                        { label: 'Units Delivered', data: units, borderColor: '#D4AF37', backgroundColor: '#D4AF37', borderWidth: 2, borderDash: [3, 3], pointRadius: 4, yAxisID: 'y1' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true, position: 'top' } },
+                    scales: {
+                        x: { grid: { color: gridColor } },
+                        y: { position: 'left', grid: { color: gridColor }, title: { display: true, text: 'Lakh Sq.Ft' } },
+                        y1: { position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Homes' } }
+                    }
+                }
+            });
+        }
+
+        function updateChartThemeColors(isDark) {
+            const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.04)';
+            const textColor = isDark ? '#94A3B8' : '#64748B';
+
+            [chartFinancials, chartCity, chartAreaUnits, singleYearCompetitorChart].forEach(chart => {
+                if(chart) {
+                    chart.options.scales.x.grid.color = gridColor;
+                    chart.options.scales.y.grid.color = gridColor;
+                    chart.options.scales.x.ticks.color = textColor;
+                    chart.options.scales.y.ticks.color = textColor;
+                    chart.update();
+                }
+            });
+        }
+
+        function setViewMode(mode) {
+            playSound(580, 'sine', 0.1);
+            const btn10 = document.getElementById('btn-mode-10yr');
+            const btnSingle = document.getElementById('btn-mode-single');
+            const yearSelect = document.getElementById('yearSelect');
+
+            if (mode === '10yr') {
+                btn10.className = "px-3 py-1 rounded-lg text-xs font-bold transition-all bg-veegaGreen-500 text-white shadow-sm";
+                btnSingle.className = "px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-veegaGreen-600";
+                yearSelect.value = "ALL";
+                handleYearSelectChange();
+            } else {
+                btnSingle.className = "px-3 py-1 rounded-lg text-xs font-bold transition-all bg-veegaGreen-500 text-white shadow-sm";
+                btn10.className = "px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-veegaGreen-600";
+                yearSelect.value = "2026";
+                handleYearSelectChange();
+            }
+        }
+
+        function handleYearSelectChange() {
+            playSound(520, 'sine', 0.1);
+            const selectedYear = document.getElementById('yearSelect').value;
+
+            if (selectedYear === "ALL") {
+                updateKPIsForSeries(veegalandSeries);
+                populateLedgerTable(veegalandSeries);
+                handleScrubberInput(10);
+            } else {
+                const filtered = veegalandSeries.filter(d => d.year === selectedYear);
+                if(filtered.length > 0) {
+                    updateKPIsForSingleYear(filtered[0]);
+                    populateLedgerTable(filtered);
+                    const chronological = [...veegalandSeries].reverse();
+                    const idx = chronological.findIndex(d => d.year === selectedYear);
+                    if(idx !== -1) {
+                        document.getElementById('yearScrubber').value = idx;
+                        handleScrubberInput(idx);
+                    }
+                }
+            }
+        }
+
+        function handleMetricHighlight() {
+            playSound(650, 'sine', 0.1);
+            const selectedMetric = document.getElementById('metricSelect').value;
+            const cards = ['card-kpi-revenue', 'card-kpi-ebitda', 'card-kpi-profit', 'card-kpi-area', 'card-kpi-units', 'card-kpi-ongoing'];
+            
+            cards.forEach(c => { document.getElementById(c).classList.remove('ring-2', 'ring-veegaGold-500', 'shadow-gold-glow'); });
+
+            if(selectedMetric === 'revenue') document.getElementById('card-kpi-revenue').classList.add('ring-2', 'ring-veegaGold-500', 'shadow-gold-glow');
+            else if(selectedMetric === 'ebitda') document.getElementById('card-kpi-ebitda').classList.add('ring-2', 'ring-veegaGold-500', 'shadow-gold-glow');
+            else if(selectedMetric === 'profit') document.getElementById('card-kpi-profit').classList.add('ring-2', 'ring-veegaGold-500', 'shadow-gold-glow');
+            else if(selectedMetric === 'area') document.getElementById('card-kpi-area').classList.add('ring-2', 'ring-veegaGold-500', 'shadow-gold-glow');
+            else if(selectedMetric === 'units') document.getElementById('card-kpi-units').classList.add('ring-2', 'ring-veegaGold-500', 'shadow-gold-glow');
+            else if(selectedMetric === 'ongoing') document.getElementById('card-kpi-ongoing').classList.add('ring-2', 'ring-veegaGold-500', 'shadow-gold-glow');
+        }
+
+        function updateKPIsForSeries(data) {
+            const latest = data[0];
+            const prev = data[1];
+
+            const revGrowth = (((latest.revenue - prev.revenue)/prev.revenue)*100).toFixed(1);
+            const profitGrowth = (((latest.profit - prev.profit)/prev.profit)*100).toFixed(1);
+            const totalRev = data.reduce((a, b) => a + b.revenue, 0);
+
+            document.getElementById('kpi-revenue').innerText = `₹${latest.revenue.toFixed(2)} Cr`;
+            document.getElementById('kpi-revenue-yoy').innerText = `+${revGrowth}%`;
+            document.getElementById('kpi-revenue-agg').innerText = `₹${totalRev.toLocaleString(undefined, {maximumFractionDigits:0})} Cr`;
+
+            document.getElementById('kpi-ebitda').innerText = `₹${latest.ebitda.toFixed(2)} Cr`;
+            document.getElementById('kpi-ebitda-yoy').innerText = `${latest.ebitdaMargin}%`;
+            document.getElementById('kpi-ebitda-status').innerText = 'FY26 Audited';
+
+            document.getElementById('kpi-profit').innerText = `₹${latest.profit.toFixed(2)} Cr`;
+            document.getElementById('kpi-profit-yoy').innerText = `+${profitGrowth}%`;
+            document.getElementById('kpi-profit-margin').innerText = `${latest.margin}%`;
+
+            document.getElementById('kpi-area').innerText = `${latest.cumArea} L Sq.Ft`;
+            document.getElementById('kpi-area-year').innerText = `${latest.area} L Sq.Ft`;
+
+            document.getElementById('kpi-units').innerText = `${latest.cumUnits.toLocaleString()} Units`;
+            document.getElementById('kpi-units-year').innerText = `${latest.units} Homes`;
+
+            document.getElementById('kpi-ongoing').innerText = `${latest.ongoing} Active`;
+        }
+
+        function updateKPIsForSingleYear(item) {
+            document.getElementById('kpi-revenue').innerText = `₹${item.revenue.toFixed(2)} Cr`;
+            document.getElementById('kpi-revenue-yoy').innerText = `FY${item.year}`;
+
+            if(item.ebitda !== null) {
+                document.getElementById('kpi-ebitda').innerText = `₹${item.ebitda.toFixed(2)} Cr`;
+                document.getElementById('kpi-ebitda-yoy').innerText = `${item.ebitdaMargin}%`;
+                document.getElementById('kpi-ebitda-status').innerText = 'Audited';
+            } else {
+                document.getElementById('kpi-ebitda').innerText = `N/A`;
+                document.getElementById('kpi-ebitda-yoy').innerText = `Unpublished`;
+                document.getElementById('kpi-ebitda-status').innerText = 'Pvt Ltd';
+            }
+
+            document.getElementById('kpi-profit').innerText = `₹${item.profit.toFixed(2)} Cr`;
+            document.getElementById('kpi-profit-yoy').innerText = `FY${item.year}`;
+            document.getElementById('kpi-profit-margin').innerText = `${item.margin}%`;
+
+            document.getElementById('kpi-area').innerText = `${item.area} L Sq.Ft`;
+            document.getElementById('kpi-area-year').innerText = `Annual`;
+
+            document.getElementById('kpi-units').innerText = `${item.units} Units`;
+            document.getElementById('kpi-units-year').innerText = `Annual`;
+
+            document.getElementById('kpi-ongoing').innerText = `${item.ongoing} Active`;
+        }
+
+        function filterLedgerTable() {
+            const input = document.getElementById("ledgerSearch").value.toUpperCase();
+            const trs = document.getElementById("ledgerTableBody").getElementsByTagName("tr");
+
+            for (let i = 0; i < trs.length; i++) {
+                let text = trs[i].textContent || trs[i].innerText;
+                trs[i].style.display = text.toUpperCase().indexOf(input) > -1 ? "" : "none";
+            }
+        }
+
+        let ledgerSortAsc = false;
+        function sortLedgerTable(colIndex) {
+            playSound(480, 'triangle', 0.1);
+            const table = document.getElementById("ledgerTable");
+            let rows, switching, i, x, y, shouldSwitch;
+            switching = true;
+            ledgerSortAsc = !ledgerSortAsc;
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[colIndex];
+                    y = rows[i + 1].getElementsByTagName("TD")[colIndex];
+
+                    let xVal = x.innerText.replace(/[₹,CrLakhSq.FtUnitsFY%N/A(PvtLtd)]/g, '').trim();
+                    let yVal = y.innerText.replace(/[₹,CrLakhSq.FtUnitsFY%N/A(PvtLtd)]/g, '').trim();
+
+                    if (!isNaN(parseFloat(xVal)) && !isNaN(parseFloat(yVal))) {
+                        xVal = parseFloat(xVal);
+                        yVal = parseFloat(yVal);
+                    }
+
+                    if (ledgerSortAsc ? xVal > yVal : xVal < yVal) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+
+        function exportLedgerToCSV() {
+            playSound(750, 'sine', 0.18);
+            let csv = [];
+            const rows = document.querySelectorAll("#ledgerTable tr");
+
+            for (let i = 0; i < rows.length; i++) {
+                let row = [], cols = rows[i].querySelectorAll("td, th");
+                for (let j = 0; j < cols.length; j++) {
+                    let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, " ").replace(/,/g, " ");
+                    row.push('"' + data.trim() + '"');
+                }
+                csv.push(row.join(","));
+            }
+
+            const csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+            const downloadLink = document.createElement("a");
+            downloadLink.download = "Veegaland_Financial_And_Competitor_Ledger.csv";
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.click();
+        }
+
+        function openLocationModal() {
+            playSound(680, 'sine', 0.12);
+            document.getElementById('locationModal').classList.remove('hidden');
+        }
+
+        function closeLocationModal() {
+            playSound(380, 'sine', 0.1);
+            document.getElementById('locationModal').classList.add('hidden');
+        }
+
+        function renderLandmarkCards(data) {
+            const container = document.getElementById('landmarksGridContainer');
+            container.innerHTML = '';
+
+            data.forEach(item => {
+                let statusBadge = item.status === "Handed Over" 
+                    ? '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">Handed Over</span>'
+                    : '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">' + item.status + '</span>';
+
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-darkCard p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between gap-2 mb-1.5">
+                            <h4 class="font-bold text-slate-800 dark:text-white text-sm flex items-center gap-1.5">
+                                <i class="fa-solid fa-building text-veegaGreen-600 dark:text-emerald-400"></i>
+                                <span>${item.name}</span>
+                            </h4>
+                            ${statusBadge}
+                        </div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1 mb-2">
+                            <i class="fa-solid fa-location-dot text-veegaGold-500"></i> ${item.location} (${item.city})
+                        </p>
+                        <div class="flex items-center gap-2 text-[11px] text-slate-600 dark:text-slate-300 mb-3">
+                            <span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-medium">${item.category}</span>
+                            <span>•</span>
+                            <span class="font-bold text-slate-800 dark:text-slate-200">${item.units} Residences</span>
+                        </div>
+                    </div>
+                    <a href="${item.mapUrl}" target="_blank" rel="noopener" class="w-full text-center py-1.5 bg-veegaGreen-50 dark:bg-emerald-950/50 hover:bg-veegaGreen-100 text-veegaGreen-700 dark:text-emerald-300 font-bold text-xs rounded-lg border border-veegaGreen-200 dark:border-emerald-800 transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-map-pin"></i> View Location Map
+                    </a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterLandmarksByCity(city) {
+            playSound(540, 'sine', 0.1);
+            document.querySelectorAll('.city-tab').forEach(btn => {
+                btn.className = "city-tab px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300 hover:text-veegaGreen-600 transition";
+            });
+            document.getElementById(`tab-city-${city}`).className = "city-tab px-3 py-1.5 rounded-lg font-bold bg-veegaGreen-500 text-white shadow-sm transition";
+
+            if (city === 'ALL') renderLandmarkCards(landmarksCatalog);
+            else renderLandmarkCards(landmarksCatalog.filter(l => l.city === city));
+        }
+
+        function searchLandmarksModal() {
+            const input = document.getElementById('landmarkModalSearch').value.toUpperCase();
+            renderLandmarkCards(landmarksCatalog.filter(l => 
+                l.name.toUpperCase().includes(input) || 
+                l.location.toUpperCase().includes(input) || 
+                l.city.toUpperCase().includes(input)
+            ));
+        }
+    </script>
+</body>
+</html>
